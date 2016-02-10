@@ -2,7 +2,7 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
-
+var Controller =   require(path + '/app/controllers/userController.server.js');
 module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
@@ -14,6 +14,7 @@ module.exports = function (app, passport) {
 	}
 
 	var clickHandler = new ClickHandler();
+	var controller = new Controller();
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
@@ -54,4 +55,10 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
+		
+   app.route('/whoami')
+        /*returns the ipaddress, os, and language to user */
+   		.get(isLoggedIn,controller.userinfo);
+
+		
 };

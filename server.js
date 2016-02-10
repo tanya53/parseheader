@@ -1,5 +1,8 @@
 'use strict';
-
+/* note the only files changed were the index.js and the addition of the 
+   userController.server.js,  I left the other boiler plate stuff in there,
+   to see the whoami you need to /whoami              */
+   
 var express = require('express');
 var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
@@ -7,6 +10,7 @@ var passport = require('passport');
 var session = require('express-session');
 
 var app = express();
+app.enable('trust proxy');
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
